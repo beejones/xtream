@@ -28,23 +28,25 @@ class xtreamAPI extends Controller
             $key = "username";
             if ($param == $key) {
                 if( isset( $maps[$val] ) ){
-                    $map = $maps[$val];
+                    $valUsr = $val;
+                    $mapUsr = $maps[$val];
                     $params .= $key;
                     $params .= "=";
-                    $params .= $map;
+                    $params .= $mapUsr;
                 } else {
-                    return response()->json(['error' => 'Unauthenticated.'], 401);
+                    return response()->json(['error' => 'Unauthenticated!'], 401);
                 }
             } else {
                 $key = "password";
                 if ($param == $key) {
                     if( isset( $maps[$val] ) ){
-                        $map = $maps[$val];
+                        $valPw = $val;
+                        $mapPw = $maps[$val];
                         $params .= $key;
                         $params .= "=";
-                        $params .= "56F738";
+                        $params .= $mapPw;
                     } else {
-                        return response()->json(['error' => 'Unauthenticated.'], 401);
+                        return response()->json(['error' => 'Unauthenticated!'], 401);
                     } 
                 } else {    
                 $params .= $param;
@@ -56,6 +58,21 @@ class xtreamAPI extends Controller
         
         $path = $maps["path"] . $params;
         $response = Http::get($path);
+/*
+        $json = json_decode($response);
+        foreach($json AS $key => $value) {
+            //
+            if ($key == "user_info") {
+                $json->user_info->username = $valUsr;
+                $json->user_info->password = $valPw;
+                //echo "Mapped Response: $valUsr <br>";
+                //echo "Mapped Response: $valPw <br>";
+            } 
+        }
+        $jsonResponse = json_encode($json);
+        //echo "JSON: $jsonResponse<br>";
+        return response()->json($json);
+*/
         return $response;
     }
 }
