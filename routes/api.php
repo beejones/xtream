@@ -18,4 +18,4 @@ use App\Http\Controllers\xtreamAPI;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get("data", [xtreamAPI::class, 'getData']);
+Route::get("/player_api.php", [xtreamAPI::class, 'getPlayer']);
